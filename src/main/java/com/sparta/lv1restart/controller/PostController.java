@@ -13,9 +13,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class PostController {
     private final PostService postService;//이 코드의 역할이 뭘 주입한다고?
-    public PostController(PostService postService){
+    public PostController(PostService postService){//생성자이다. postService이녀석이 final로 고정되었기 때문에 값을 함부로 바꿀 수 없다. 그래서 생성자로 postService로 초기화 시켜주는 것.
         this.postService = postService;
-    }
+    }//@RequiredArgsConstructor가 자동적으로 만들어주는애다.
     @PostMapping("/post")
     public PostResponseDto createPost(@RequestBody PostRequestDto requestDto){
         return postService.createPost(requestDto);

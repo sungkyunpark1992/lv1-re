@@ -52,10 +52,12 @@ public class PostService {
         //해당 메모가 DB에 존재하는지 확인
         Post post = findPost(id, requestDto);
         postRepository.delete(post);//Repository와 Entity의 차이점이 뭘까? Entity에서 직접삭제하지 않고 Repository의 메소드를 통해 삭제하네? 왜?
+        //엔티티가 삭제를 관여하지는 않는다. 편의상.
         return true;
     }
     private Post findPost(Long id, PostRequestDto requestDto) {
         Post post = postRepository.findById(id).orElseThrow(()->//postRepository.findById(id)메소드를 찾아들어가면 boolean값을 반환하는데 어떻게 Post타입의 변수에 담길수 있는지?
+                //Optional 널값도 받을 수 있는 래퍼클래스다. id값을 받을 수 있는 엔티티를 반환한다. findById의 기능이다.찾아가서 보면된다.
                 new IllegalArgumentException("선택한 글은 존재하지 않습니다."));
         if(!post.getPassword().equals(requestDto.getPassword())){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
